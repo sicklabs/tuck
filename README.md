@@ -1,4 +1,4 @@
-# Tuck
+# Friar
 
 **Friar** (`src/Friar.sol`) is a Uniswap v4 dynamic-fee hook for Robinhood Chain:
 the Liquidity Book volatility-accumulator fee model (LFJ `joe-v2`, MIT — the same
@@ -12,10 +12,11 @@ deployment details.
 > Every pool has a Friar; the Friar always eats.
 
 ```
-src/FriarMath.sol          LB fee math, ported to v4 units
-src/Friar.sol              the hook (afterInitialize + beforeSwap only)
-test/                      unit vectors + PoolManager integration tests
-script/DeployFriar.s.sol   CREATE2/HookMiner deployment
+src/FriarMath.sol             LB fee math, ported to v4 units
+src/Friar.sol                 the hook (afterInitialize + beforeSwap only)
+src/FriarPositionManager.sol  multi-bin position manager (atomic open/close/zap, 10% perf fee)
+test/                         unit vectors + PoolManager integration tests
+script/DeployFriar.s.sol      CREATE2/HookMiner deployment
 ```
 
 ## Setup
@@ -35,6 +36,7 @@ forge test
 |---|---|---|
 | Friar (standard) | `0xFeDa24F0d3805170E7566cE617CfBa01cE05D080` | baseFactor 5000, filter 10, decay 600, reduction 5000, vfc 40000, maxVolAcc 350000 |
 | Friar (calm) | `0x5E6b0bbc811705b8d8234e9914c0507243fB1080` | same, vfc 20000 |
+| FriarPositionManager | `0xD3EE78a76C4C660EC3d25244855A8423a37Db110` | perfFee 10% (immutable), in-kind at collection |
 
 ## License
 
